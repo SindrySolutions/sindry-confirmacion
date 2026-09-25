@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Pago | Sindry ERP</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #f3f6f9;
+      --card: #ffffff;
+      --brand: #e8eef5;
+      --navy: #14283d;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --success: #1f9d67;
+      --neutral: #2f6fa7;
+      --error: #c84a55;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 570px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 45px rgba(20, 40, 61, 0.13);
+    }
+
+    .brand {
+      background: var(--brand);
+      padding: 25px 32px;
+      text-align: center;
+      border-bottom: 1px solid #dde5ed;
+    }
+
+    .brand img {
+      display: block;
+      max-width: 250px;
+      max-height: 86px;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+
+    .content {
+      padding: 36px 38px 32px;
+      text-align: center;
+    }
+
+    .status-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef4f8;
+      color: var(--navy);
+      font-size: 34px;
+      font-weight: bold;
+      transition: all .2s ease;
+    }
+
+    .status-icon.success {
+      background: #eaf7f1;
+      color: var(--success);
+    }
+
+    .status-icon.error {
+      background: #fceef0;
+      color: var(--error);
+    }
+
+    .status-icon.neutral {
+      background: #edf4fa;
+      color: var(--neutral);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: 25px;
+      line-height: 1.22;
+    }
+
+    .message {
+      margin: 0 auto;
+      max-width: 450px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .founder {
+      display: none;
+      width: fit-content;
+      margin: 22px auto 0;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: #edf4fa;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: bold;
+      border: 1px solid #d6e3ef;
+    }
+
+    .details {
+      display: none;
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 16px;
+      background: #fbfcfd;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-row span { color: var(--muted); }
+    .detail-row strong { color: var(--navy); text-align: right; }
+
+    .return-box {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .return-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-size: 14px;
+    }
+
+    .return-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .footer {
+      padding: 18px 24px;
+      text-align: center;
+      background: #f8fafc;
+      border-top: 1px solid var(--line);
+      color: #7c8796;
+      font-size: 12px;
+    }
+
+    @media (max-width: 560px) {
+      body { padding: 14px; }
+      .content { padding: 31px 22px 27px; }
+      .brand { padding: 22px; }
+      h1 { font-size: 23px; }
+      .detail-row { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .detail-row strong { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="brand">
+      <img src="logo.png" alt="Sindry ERP">
+    </div>
+
+    <div class="content">
+      <div id="statusIcon" class="status-icon neutral">…</div>
+      <div id="eyebrow" class="eyebrow">Sindry ERP</div>
+      <h1 id="heading">Verificando tu pago…</h1>
+      <p id="message" class="message">Estamos confirmando el resultado con Stripe.</p>
+
+      <div id="founder" class="founder"></div>
+
+      <div id="details" class="details"></div>
+
+      <div class="return-box">
+        <strong id="returnTitle">Regresa a Sindry ERP</strong>
+        <p id="returnText">Puedes cerrar esta pestaña y volver a Sindry ERP.</p>
+        <p id="refreshText" style="margin-top:5px;">Si Cuenta y membresía sigue abierta, pulsa Actualizar.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      Sindry Solutions · Stripe secure checkout
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get("lang") === "en" ? "en" : "es";
+      document.documentElement.lang = lang;
+
+      const copy = {
+        es: {
+          verifying: "Verificando pago",
+          verifyHeading: "Verificando tu pago…",
+          verifyMessage: "Estamos confirmando el resultado con Stripe.",
+          returnTitle: "Regresa a Sindry ERP",
+          returnText: "Puedes cerrar esta pestaña y volver a Sindry ERP.",
+          refreshText: "Si Cuenta y membresía sigue abierta, pulsa Actualizar.",
+          founder: "Fundador",
+          amount: "Importe",
+          plan: "Plan",
+          errorStatus: "Verificación no disponible",
+          errorHeading: "No pudimos verificar el pago todavía",
+          errorMessage: "Regresa a Sindry ERP y actualiza el estado de tu membresía."
+        },
+        en: {
+          verifying: "Verifying payment",
+          verifyHeading: "Verifying your payment…",
+          verifyMessage: "We are confirming the result with Stripe.",
+          returnTitle: "Return to Sindry ERP",
+          returnText: "You can close this tab and return to Sindry ERP.",
+          refreshText: "If Account & membership is still open, click Refresh.",
+          founder: "Founder",
+          amount: "Amount",
+          plan: "Plan",
+          errorStatus: "Verification unavailable",
+          errorHeading: "We couldn't verify the payment yet",
+          errorMessage: "Return to Sindry ERP and refresh your membership status."
+        }
+      }[lang];
+
+      const byId = (id) => document.getElementById(id);
+      const icon = byId("statusIcon");
+      const eyebrow = byId("eyebrow");
+      const heading = byId("heading");
+      const message = byId("message");
+      const founder = byId("founder");
+      const details = byId("details");
+
+      eyebrow.textContent = copy.verifying;
+      heading.textContent = copy.verifyHeading;
+      message.textContent = copy.verifyMessage;
+      byId("returnTitle").textContent = copy.returnTitle;
+      byId("returnText").textContent = copy.returnText;
+      byId("refreshText").textContent = copy.refreshText;
+
+      const sessionId = params.get("session_id") || "";
+      const cancelled = params.get("cancelled") === "1";
+
+      const apiParams = new URLSearchParams();
+      apiParams.set("api", "1");
+      apiParams.set("lang", lang);
+      if (cancelled) apiParams.set("cancelled", "1");
+      else apiParams.set("session_id", sessionId);
+
+      const apiUrl =
+        "https://wdikfzffzduxxnojadpn.supabase.co/functions/v1/payment-result?" +
+        apiParams.toString();
+
+      const addDetail = (label, value) => {
+        const row = document.createElement("div");
+        row.className = "detail-row";
+
+        const name = document.createElement("span");
+        name.textContent = label;
+
+        const val = document.createElement("strong");
+        val.textContent = value;
+
+        row.append(name, val);
+        details.appendChild(row);
+      };
+
+      fetch(apiUrl, { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          return response.json();
+        })
+        .then((data) => {
+          const tone =
+            data.tone === "success" || data.tone === "error"
+              ? data.tone
+              : "neutral";
+
+          icon.className = "status-icon " + tone;
+          icon.textContent =
+            tone === "success" ? "✓" : tone === "error" ? "!" : "…";
+
+          eyebrow.textContent = data.status_text || copy.verifying;
+          heading.textContent = data.heading || copy.verifyHeading;
+          message.textContent = data.message || copy.verifyMessage;
+
+          if (data.founder_number) {
+            founder.textContent =
+              "★ " + copy.founder + " #" + String(data.founder_number);
+            founder.style.display = "block";
+          }
+
+          if (data.amount_display) {
+            addDetail(copy.amount, String(data.amount_display));
+          }
+
+          if (data.period_display) {
+            addDetail(copy.plan, String(data.period_display));
+          }
+
+          if (details.children.length) {
+            details.style.display = "block";
+          }
+
+          document.title = (data.heading || "Sindry ERP") + " | Sindry ERP";
+        })
+        .catch(() => {
+          icon.className = "status-icon error";
+          icon.textContent = "!";
+          eyebrow.textContent = copy.errorStatus;
+          heading.textContent = copy.errorHeading;
+          message.textContent = copy.errorMessage;
+        });
+    })();
+  </script>
+</body>
+</html>
