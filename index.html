@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
-  <title>Correo confirmado | Sindry ERP</title>
+  <title>Sindry ERP</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -34,6 +32,7 @@
     }
 
     .brand {
+      position: relative;
       background: #e8eef5;
       padding: 26px 32px;
       text-align: center;
@@ -47,6 +46,31 @@
       height: auto;
       margin: 0 auto;
       object-fit: contain;
+    }
+
+    .lang {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .lang button {
+      border: 1px solid #cbd6e2;
+      border-radius: 8px;
+      background: rgba(255,255,255,.7);
+      color: #52657a;
+      padding: 5px 7px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .lang button.active {
+      background: #14283d;
+      color: #ffffff;
+      border-color: #14283d;
     }
 
     .content {
@@ -93,31 +117,65 @@
 </head>
 
 <body>
-
   <div class="card">
-
     <div class="brand">
       <img src="logo.png" alt="Sindry ERP">
+      <div class="lang" aria-label="Language">
+        <button id="langEs" type="button">ES</button>
+        <button id="langEn" type="button">EN</button>
+      </div>
     </div>
 
     <div class="content">
-
       <div class="icon">✓</div>
-
-      <h1>Correo confirmado correctamente</h1>
-
-      <p>
-        Tu cuenta de Sindry ya está activa.<br>
-        Puedes cerrar esta ventana y regresar a Sindry para iniciar sesión.
-      </p>
-
+      <h1 id="heading"></h1>
+      <p id="message"></p>
     </div>
 
-    <div class="footer">
-      Sindry ERP
-    </div>
-
+    <div class="footer">Sindry ERP</div>
   </div>
 
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const requested = (params.get("lang") || navigator.language || "es").toLowerCase();
+      const lang = requested.startsWith("en") ? "en" : "es";
+
+      const copy = {
+        es: {
+          title: "Correo confirmado | Sindry ERP",
+          heading: "Correo confirmado correctamente",
+          message: "Tu cuenta de Sindry ya está activa.\nPuedes cerrar esta ventana y regresar a Sindry para iniciar sesión."
+        },
+        en: {
+          title: "Email confirmed | Sindry ERP",
+          heading: "Email confirmed successfully",
+          message: "Your Sindry account is now active.\nYou can close this window and return to Sindry to sign in."
+        }
+      }[lang];
+
+      document.documentElement.lang = lang;
+      document.title = copy.title;
+      document.getElementById("heading").textContent = copy.heading;
+
+      const message = document.getElementById("message");
+      copy.message.split("\n").forEach((line, index) => {
+        if (index) message.appendChild(document.createElement("br"));
+        message.appendChild(document.createTextNode(line));
+      });
+
+      document.getElementById("langEs").classList.toggle("active", lang === "es");
+      document.getElementById("langEn").classList.toggle("active", lang === "en");
+
+      const setLang = (next) => {
+        const nextParams = new URLSearchParams(window.location.search);
+        nextParams.set("lang", next);
+        window.location.search = nextParams.toString();
+      };
+
+      document.getElementById("langEs").addEventListener("click", () => setLang("es"));
+      document.getElementById("langEn").addEventListener("click", () => setLang("en"));
+    })();
+  </script>
 </body>
 </html>
