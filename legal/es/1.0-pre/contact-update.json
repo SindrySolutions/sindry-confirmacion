@@ -1,0 +1,27 @@
+{
+  "updated_on": "2026-10-09",
+  "scope": "Complete commercial phone in five prepublication documents. Existing substantive terms, URLs, version IDs and legal-review status remain unchanged. No acceptance records were modified.",
+  "normalization": "UTF-8 SHA-256 of visible HTML text from h1 through FIN DEL DOCUMENTO, excluding the hash block; replace tags with spaces, decode HTML entities, collapse whitespace and trim. Previous displayed hashes refer to the documents before this contact correction.",
+  "documents": {
+    "eula.html": {
+      "previous_displayed_sha256": "2979c4f91728404eafe90b7c502c625d5e3e622e3b7e538f221180fdd49cc0b6",
+      "legal_text_sha256": "dd6a20205d03e65d6de57a881c5252dd67bf9bb8ec5e25894de8c761de69bbdb"
+    },
+    "pagos.html": {
+      "previous_displayed_sha256": "408142ee964e8a72fb2ba26ed5ce0ffdefe47d744625dd59ab2d49eb12a6f601",
+      "legal_text_sha256": "989eae4cd246c6d15a9a2873a08688e53564d4dbd31dedbdfa3dd532a3264820"
+    },
+    "privacidad-simplificada.html": {
+      "previous_displayed_sha256": "ace8b3dd0992c38f43e2326df10a8c8f9089c6499fbd9cb4928d4e4c7fe50385",
+      "legal_text_sha256": "fdc5a2cfe7736efc2281b9f51bb8699482ab347d4bebf91a3ecacff84b6c4dfa"
+    },
+    "privacidad.html": {
+      "previous_displayed_sha256": "325315436cdd172dad82db332b79bf6f9ca391ff62a60a164b57e5dfeb00874f",
+      "legal_text_sha256": "190b3e5cb955165b864fff07e37a955d5fcbde40f89a0ef2496c2d761cb1e084"
+    },
+    "terminos.html": {
+      "previous_displayed_sha256": "12ac3efa23448436412eec6d103ae4bf062c05d0b930ef8d8e09fffa7907c316",
+      "legal_text_sha256": "ef6ebff138590310473f32b2fe076bdc014b6a963cf10fb7f1ad859401bd363a"
+    }
+  }
+}
